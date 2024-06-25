@@ -82,13 +82,6 @@
 	overflow-y: visible;/*don't set hidden, otherwise sometime there will appear h-scrollbar in row*/
 	white-space: nowrap;
 	z-index: 1;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}"> 
-		font-size:0;
-	</c:if>
-	<c:if test="${c:isExplorer() and not c:isExplorer7() and not c:browser('ie11')}">
-		position: static;
-		overflow-y: hidden;
-	</c:if>
 }
 
 .zscell {
@@ -108,14 +101,6 @@
 	position: relative;
 	cursor : default;
 	display: inline-block;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		zoom: 1;
-		*display: inline;
-	</c:if>
-	<c:if test="${c:isOpera()}">
-		vertical-align:text-top;
-		/*vertical-align: top;*//* DIFF : important, vertical align will cause opera scrollbar disappear*/
-	</c:if>
 }
 
 /* ZSS-568: double border 15 combinations*/
@@ -493,10 +478,6 @@
 	width: 49px; /* colWidth - 2*cellPadding - 1 , 1 is border*/
 	overflow: hidden;
 	line-height: normal; /*zss-598, reset to avoid zk's effect*/
-	<c:if test="${c:browser('ie7-') || c:browser('ie6-')}">
-		position: absolute;
-		zoom: 1;
-	</c:if>
 	white-space: pre; /* ZSS-1118 */
 }
 
@@ -530,10 +511,6 @@
 
 .zscelltxt-real {
 	width: 100%;
-	<c:if test="${c:browser('ie7-') || c:browser('ie6-')}">
-		left: 0;
-		position: absolute;
-	</c:if>
 }
 
 /* ZSS-918: vertical text */
@@ -546,10 +523,6 @@
     white-space:pre-wrap;
     letter-spacing:1em;
     display: inline-block;
-    <c:if test="${c:browser('ie') and not c:browser('ie11')}">
-        zoom: 1;
-        *display: inline;
-    </c:if>
 }
 
 .zscelltxt-wrap{
@@ -691,9 +664,6 @@
 	font-size: 12px;
 	/* height: 19px;*/ /* rowHeight - 1, 1 is border */
 	text-align: center;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 10px;
-	</c:if>
 	overflow: hidden;
 }
 
@@ -774,9 +744,6 @@
 	height: 20px; /* topHeight - 2, 2 is border */
 	background-color: #CFCFCF;
 	overflow: hidden;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		*font-size: 0;
-	</c:if>
 }
 
 .zscorneri {
@@ -803,20 +770,12 @@
 	z-index: 2;
 	display: none;
 	border: 3px solid #008DB7;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-	</c:if>
 }
 .zsfocmarki{
 	position: absolute;
 	width:100%;
 	height:100%;
 	opacity: 0; /* ZSS-286: it's for modern browser (including IE 9+) */ 
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-		filter: alpha(opacity=0);
-		background: #FFFFFF;
-	</c:if>
 }
 .zsfocmarkl{
 	position: relative;
@@ -839,12 +798,6 @@
 	display: none;
 	cursor: move;
 	border: 3px solid #008DB7;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-	</c:if>
-	<c:if test="${c:isGecko3()}">
-		-moz-user-select: none;
-	</c:if>
 }
 .zsselecti{
 	position: absolute;
@@ -852,19 +805,11 @@
 	width:100%;
 	height:100%;
 	opacity: 0; /* ZSS-286: it's for modern browser (including IE 9+) */ 
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-		filter: alpha(opacity=0);
-		background: #FFFFFF;
-	</c:if>
 }
 
 .zsselecti-r{
 	background-color: #E1E1E1;
 	opacity:.5;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		filter: alpha(opacity=50);
-	</c:if>
 }
 
 .zsseldot {
@@ -876,9 +821,6 @@
 	border: 1px solid #FFFFFF;
 	background-color: #008DB7;
 	cursor: crosshair;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-	</c:if>
 }
 
 .zsselchg {
@@ -963,21 +905,12 @@
 	z-index:2;
 	vertical-align:top;
 	display: inline-block;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		zoom: 1;
-		*display: inline;
-	</c:if>
 }
 .zshbouni{
 	position: relative;
 	height:100%;
 	width:7px;
 	display: inline-block;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		*position: absolute;
-		zoom: 1;
-		*display: inline;
-	</c:if>
 }
 .zsvboun{
 	position:relative;
@@ -989,10 +922,6 @@
 	position: relative;
 	height:7px;
 	width:100%;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		*position: absolute;
-		font-size: 0;
-	</c:if>
 }
 .zshbouni-over{
 	background: #CFCFCF;
@@ -1007,12 +936,6 @@
 	height:100%;
 	width:3px;
 	display: inline-block;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		zoom: 1;
-		*display: inline;
-		*position: absolute;
-		*left:7px;
-	</c:if>
 }
 .zshbounw-over{
 	background: #A9C4E9;
@@ -1022,11 +945,6 @@
 	position: relative;
 	height:3px;
 	width:100%;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		font-size: 0;
-		*position: absolute;
-		*top:7px;
-	</c:if>
 }
 .zsvbounw-over{
 	background: #CFCFCF;
@@ -1056,9 +974,6 @@
 	background-color : #CFCFCF;
 	opacity:.75;
 	display:table;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		filter:alpha(opacity=75);
-	</c:if>
 }
 .zssmask2{
 	display:table-cell;
@@ -1100,9 +1015,6 @@
 	background: #FFFFFF;
 	border: 2px solid #333333;
 	opacity:.5;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		filter: alpha(opacity=50);
-	</c:if>
 }
 
 .zswidget-focus {
@@ -1257,11 +1169,6 @@
 
 .zsdvp-popup {
 	background: #FFFFE1;
-	<c:if test="${c:browser('ie7-') || c:browser('ie6-') || c:isOpera()}">
-		width: 200px;
-		height: 90px;
-		overflow: auto;
-	</c:if>
 }
 
 .zsdvp-popup-cave {
@@ -1368,9 +1275,6 @@
 .zsafp-value-seld.zsafp-value-checkbox {
     background: url(${c:encodeURL('~./zss/img/tick-small.png')}) no-repeat transparent;
     cursor: pointer;
-    <c:if test="${c:browser('ie6-')}">
-        background-image: url(${c:encodeURL('~./zss/img/tick.gif')});
-    </c:if>
 }
 
 .zsafp-value-more {
@@ -1458,9 +1362,6 @@
 .zsafp-color-seld.zsafp-color-checkbox {
     background: url(${c:encodeURL('~./zss/img/tick-small.png')}) no-repeat transparent;
     cursor: pointer;
-    <c:if test="${c:browser('ie6-')}">
-        background-image: url(${c:encodeURL('~./zss/img/tick.gif')});
-    </c:if>
 }
 
 .zsafp-color-more {
@@ -1615,9 +1516,6 @@
 	background-position: left center;
 	font-size: 13px;
 	cursor: pointer;
-	<c:if test="${c:browser('ie6-')}">
-		padding-left: 2px;
-	</c:if>
 }
 
 .zsafp-item-over {
@@ -1636,29 +1534,14 @@
 	left: 3px;
 	top: 2px;
 	background: url(${c:encodeURL('~./zss/img/ui-check-box-uncheck.png')}) no-repeat transparent;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/ui-check-box-uncheck.gif')});
-	</c:if>
 }
-
-<c:if test="${c:browser('ie6-')}">
-.zsafp-item-text {
-	margin-left: 22px;
-}
-</c:if>
 
 .zsafp-item-seld .zsafp-item-checkbox {
 	background: url(${c:encodeURL('~./zss/img/ui-check-box.png')}) no-repeat transparent;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/ui-check-box.gif')});
-	</c:if>
 }
 
 .zsafp-item-seld-mix .zsafp-item-checkbox {
 	background: url(${c:encodeURL('~./zss/img/ui-check-box-mix.png')}) no-repeat transparent;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/ui-check-box-mix.gif')});
-	</c:if>
 }
 	
 .zsafp-search-icon {
@@ -1669,19 +1552,12 @@
 	top: 4px;
 	width: 16px;
 	height: 16px;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/magnifier-zoom.gif')});
-	</c:if>
 }
 
 .zsafp-btns {
 	padding: 10px 12px;
 	position: absolute;
 	right: 0;
-	<c:if test="${c:isExplorer() and not c:browser('ie8') and not c:browser('ie11')}">
-		width: 150px;
-		height: 50px;
-	</c:if>
 }
 
 .zsafp-btn {
@@ -1691,9 +1567,6 @@
 	width: 50px;
 	padding: 0 8px;
 	display: inline-block;
-	<c:if test="${c:isExplorer() and not c:browser('ie8') and not c:browser('ie11')}">
-		position: absolute;
-	</c:if>
 	border: 1px solid #C7C7C7;
 	margin: 0 8px;
 }
@@ -1701,29 +1574,14 @@
 .zsafp-btn-disd {
 	cursor: default;
 	opacity: 0.6;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		filter: alpha(opacity=60);
-	</c:if>
 }
 
 .zsafp-ok-btn {
 	background: url(${c:encodeURL('~./zss/img/tick.png')}) no-repeat 25px 5px #EFEFEF;
-	<c:if test="${c:isExplorer() and not c:browser('ie8') and not c:browser('ie11')}">
-		left: 0;
-	</c:if>
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/tick.gif')});
-	</c:if>
 }
 
 .zsafp-cancel-btn {
 	background: url(${c:encodeURL('~./zss/img/cross.png')}) no-repeat 25px 5px #EFEFEF;
-	<c:if test="${c:isExplorer() and not c:browser('ie8') and not c:browser('ie11')}">
-		right: 8px;
-	</c:if>
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/cross.gif')});
-	</c:if>
 }
 
 .zsnamebox {
@@ -1734,9 +1592,6 @@
 	border-top: 0;
 	border-left: 0;
 	padding-bottom: 1px;
-	<c:if test="${c:browser('ie7-') || c:browser('ie6-')}">
-		height: 24px;
-	</c:if>
 }
 .zsnamebox-inp {
 	font-size: 14px;
@@ -1756,16 +1611,10 @@
 	width: 24px;
 	height: 24px;
 	cursor: pointer;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/namebox-arrow.gif')});
-	</c:if>
 }
 .zsnamebox-disd .zsnamebox-icon {
 	cursor: default;
 	opacity: 0.5;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		filter: alpha(opacity=50);
-	</c:if>
 }
 .zsnamebox-pp {
 	position:absolute;
@@ -1791,13 +1640,6 @@
 	text-align: center;
 	padding-top: 0;
 	padding-bottom: 4px;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		padding-top: 1px;
-		padding-bottom: 3px;
-	</c:if>
-	<c:if test="${c:browser('ie6-')}">
-		font-family: Lucida Sans Unicode;
-	</c:if>
 }
 .zsformulabar-insertbtn .z-toolbarbutton-content {
 	font-size: 14px;
@@ -1805,20 +1647,12 @@
 	text-align: center;
 	padding-top: 0;
 	padding-bottom: 4px;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		padding-top: 1px;
-		padding-bottom: 3px;
-	</c:if>
 }
 .zsformulabar-insertbtn .zsformulabar-insertbtn-body-over .z-toolbarbutton-content,
 .zsformulabar-okbtn .zsformulabar-okbtn-body-over .z-toolbarbutton-content,
 .zsformulabar-cancelbtn .zsformulabar-cancelbtn-body-over .z-toolbarbutton-content {
 	padding-top: 0;
 	padding-bottom: 4px;
-	<c:if test="${c:browser('ie') and not c:browser('ie11')}">
-		padding-top: 1px;
-		padding-bottom: 3px;
-	</c:if>
 }
 .zsformulabar-buttons {
 	position: absolute;
@@ -1851,15 +1685,9 @@
 	height: 21px;
 	padding: 2px;
 	background: url(${c:encodeURL('~./zss/img/arrow-270-small.png')}) no-repeat 4px 2px transparent;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/arrow-270-small.gif')});
-	</c:if>	
 }
 .zsformulabar-expandbtn-expanded .z-toolbarbutton-content {
 	background: url(${c:encodeURL('~./zss/img/arrow-090-small.png')}) no-repeat 4px 2px transparent;
-	<c:if test="${c:browser('ie6-')}">
-		background-image: url(${c:encodeURL('~./zss/img/arrow-090-small.gif')});
-	</c:if>		
 }
 .zsformulabar-editor {
 	border: 1px solid #D8D8D8;
@@ -1950,14 +1778,12 @@
 	margin-top: -3px;
 }
 
-<c:if test="${c:isGecko()}">
 .zssheetselector .z-tabs-cnt {
 	-moz-user-select: text;
 }
 .zssheetselector .z-tab {
 	-moz-user-select: text;
 }
-</c:if>	
 
 .zssheet-editor {
 	padding: 1px 0;
@@ -2011,23 +1837,6 @@
     padding: 2px 0px;
 }
     
-<c:if test="${c:browser('ie6-')}">
-.zstbtn .zstbtn-cave {
-	margin-right: -12px;
-}
-.zstbtn .z-toolbarbutton-content {
-	overflow: visible;
-	display: inline-block;
-	width: 100%;
-}
-.zschktbtn {
-	font-size: 0;
-}
-.zschktbtn IMG {
-	margin-right: -16px;
-}
-</c:if>	
-
 .zstbtn-cave {
 	position: absolute;
 	top: 0;
@@ -2089,21 +1898,11 @@
 	padding: 2px;
 }
 
-<c:if test="${c:browser('ie6-')}">
-.zstbtn .z-toolbarbutton-content,
-.zstbtn .zstbtn-cave  {
-	font-size: 0;
-}
-</c:if>
-
 .zstbtn-arrow {
 	width: 9px;
 	margin-top: 6px;
 	height: 16px;
 	background: url(${c:encodeURL('~./zss/img/arrow-down.gif')}) no-repeat;
-	<c:if test="${c:browser('ie6-')}">
-		font-size: 0;
-	</c:if>
 }
 
 .zstbtn-sep {
@@ -2221,9 +2020,6 @@
 	left: 3px;
 	bottom: 2px;
 	position: absolute;
-	<c:if test="${c:browser('ie6-')}">
-		font-size: 0;
-	</c:if>
 }
 
 .zschktbtn .z-toolbarbutton-content {

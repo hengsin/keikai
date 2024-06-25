@@ -14,14 +14,16 @@ package io.keikai.model.sys.formula;
 
 import io.keikai.model.impl.sys.formula.FunctionResolverImpl;
 import org.zkoss.lang.Library;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A factory of formula function resolver.
  * @author Pao
  */
 public class FunctionResolverFactory {
-	private static final Log logger = Log.lookup(FunctionResolverFactory.class.getName());
+	private static final Logger logger = Logger.getLogger(FunctionResolverFactory.class.getName());
 
 	private static Class<?> functionResolverClazz;
 	static {
@@ -30,7 +32,7 @@ public class FunctionResolverFactory {
 			try {
 				functionResolverClazz = Class.forName(clz);
 			} catch(Exception e) {
-				logger.error(e.getMessage(), e);
+				logger.log(Level.SEVERE, e.getMessage(), e);
 			}			
 		}
 	}
@@ -41,7 +43,7 @@ public class FunctionResolverFactory {
 				return (FunctionResolver)functionResolverClazz.newInstance();
 			}
 		} catch(Exception e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			functionResolverClazz = null;
 		}
 		return new FunctionResolverImpl();

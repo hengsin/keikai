@@ -83,7 +83,6 @@ import org.zkoss.poi.ss.formula.ptg.TablePtg.Item;
 import org.zkoss.poi.ss.formula.ptg.Parenthesis2Ptg;
 import org.zkoss.poi.ss.formula.udf.UDFFinder;
 import org.zkoss.poi.xssf.model.IndexedUDFFinder;
-import org.zkoss.util.logging.Log;
 import org.zkoss.xel.FunctionMapper;
 import org.zkoss.xel.VariableResolver;
 import org.zkoss.xel.XelContext;
@@ -104,6 +103,9 @@ import io.keikai.model.sys.formula.FormulaParseContext;
 import io.keikai.model.sys.formula.FunctionResolver;
 import io.keikai.model.sys.formula.FunctionResolverFactory;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * A formula engine implemented by ZPOI
  * @author Pao
@@ -113,7 +115,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 
 	public final static String KEY_EVALUATORS = "$KK_EVALUATORS$";
 
-	private static final Log _logger = Log.lookup(FormulaEngineImpl.class.getName());
+	private static final Logger _logger = Logger.getLogger(FormulaEngineImpl.class.getName());
 
 	private Map<EvaluationWorkbook, XelContext> _xelContexts = new HashMap<EvaluationWorkbook, XelContext>();
 	
@@ -261,15 +263,15 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 					
 					
 				}catch(FormulaParseException e) {
-					_logger.info(e.getMessage() + " when parsing " + formula + " at " + getReference(context));
-					if (_logger.infoable()) {
+					_logger.config(e.getMessage() + " when parsing " + formula + " at " + getReference(context));
+					if (_logger.isLoggable(Level.CONFIG)) {
 						e.printStackTrace();
 					}
 					result.add(new FormulaExpressionImpl(formula, null, null, true, e.getMessage(), multipleArea));
 					error = true;
 				} catch(Exception e) {
-					_logger.error(e.getMessage() + " when parsing " + formula + " at " + getReference(context), e);
-					if (_logger.errorable()) {
+					_logger.log(Level.SEVERE, e.getMessage() + " when parsing " + formula + " at " + getReference(context), e);
+					if (_logger.isLoggable(Level.SEVERE)) {
 						e.printStackTrace();
 					}
 					result.add(new FormulaExpressionImpl(formula, null, null, true, e.getMessage(), multipleArea));
@@ -284,7 +286,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 				}
 			}
 		} catch(Exception e) {
-			_logger.error(e.getMessage() + " when parsing " + Arrays.asList(formulas) + " at " + getReference(context), e);
+			_logger.log(Level.SEVERE, e.getMessage() + " when parsing " + Arrays.asList(formulas) + " at " + getReference(context), e);
 			result.clear();
 			result.add(new FormulaExpressionImpl(Arrays.asList(formulas).toString(), null, null, true,e.getMessage(), multipleArea));
 		}
@@ -370,7 +372,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 				return new IndirectRefImpl(bookName, sheetName, ptgIndex);
 			}
 		} catch(Exception e) {
-			_logger.error(e.getMessage(), e);
+			_logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return null;
 	}
@@ -416,7 +418,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 				table.setEvaluated(dependant);
 			}
 		} catch(NotImplementedException e) {
-			_logger.info(e.getMessage() + " when eval " + expr.getFormulaString());
+			_logger.config(e.getMessage() + " when eval " + expr.getFormulaString());
 			result = new EvaluationResultImpl(ResultType.ERROR, new ErrorValue(ErrorValue.INVALID_NAME, e.getMessage()), ErrorEval.NAME_INVALID);
 		} catch(EvaluationException e) { 
 			_logger.warning(e.getMessage() + " when eval " + expr.getFormulaString());
@@ -427,10 +429,10 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 		} catch(FormulaParseException e) {
 			// we skip evaluation if formula has parsing error
 			// so if still occurring formula parsing exception, it should be a bug 
-			_logger.error(e.getMessage() + " when eval " + expr.getFormulaString());
+			_logger.severe(e.getMessage() + " when eval " + expr.getFormulaString());
 			result = new EvaluationResultImpl(ResultType.ERROR, new ErrorValue(ErrorValue.INVALID_FORMULA, e.getMessage()), ErrorEval.FORMULA_INVALID);
 		} catch(Exception e) {
-			_logger.error(e.getMessage() + " when eval " + expr.getFormulaString(), e);
+			_logger.log(Level.SEVERE, e.getMessage() + " when eval " + expr.getFormulaString(), e);
 			result = new EvaluationResultImpl(ResultType.ERROR, new ErrorValue(ErrorValue.INVALID_FORMULA, e.getMessage()), ErrorEval.FORMULA_INVALID);
 		}
 		return result;
@@ -685,7 +687,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 				map.clear(); // just in case
 			}
 		} catch(Exception e) {
-			_logger.error(e.getMessage(), e);
+			_logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -915,7 +917,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 			expr = new FormulaExpressionImpl(renderedFormula, tokens, refs);
 
 		} catch(FormulaParseException e) {
-			_logger.info(e.getMessage());
+			_logger.config(e.getMessage());
 			expr = new FormulaExpressionImpl(formula, null, null, true, e.getMessage(), false);
 		}
 		return expr;
@@ -1433,7 +1435,7 @@ public class FormulaEngineImpl implements FormulaEngine, Serializable {
 			expr = new FormulaExpressionImpl(renderedFormula, tokens, refs);
 
 		} catch(FormulaParseException e) {
-			_logger.info(e.getMessage());
+			_logger.config(e.getMessage());
 			expr = new FormulaExpressionImpl(formula, null, null, true, e.getMessage(), false);
 		}
 		return expr;

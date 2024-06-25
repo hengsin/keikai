@@ -28,7 +28,6 @@ import io.keikai.ui.sys.SpreadsheetCtrl;
 import io.keikai.ui.sys.SpreadsheetInCtrl;
 import org.zkoss.json.JSONObject;
 import org.zkoss.lang.Objects;
-import org.zkoss.util.logging.Log;
 import org.zkoss.zk.au.AuRequest;
 import org.zkoss.zk.mesg.MZk;
 import org.zkoss.zk.ui.Component;
@@ -38,6 +37,8 @@ import io.keikai.ui.impl.JSONObj;
 import io.keikai.ui.impl.MergeMatrixHelper;
 import io.keikai.ui.sys.FreezeInfoLoader;
 
+import java.util.logging.Logger;
+
 /**
  * A Command Helper for (client to server) for fetch data back
  * @author Dennis.Chen
@@ -46,7 +47,7 @@ import io.keikai.ui.sys.FreezeInfoLoader;
 public class CellFetchCommandHelper implements Serializable {
 	private static final long serialVersionUID = -8772574024823251988L;
 
-	private static final Log log = Log.lookup(CellFetchCommandHelper.class);
+	private static final Logger log = Logger.getLogger(CellFetchCommandHelper.class.getName());
 	
 	private Spreadsheet _spreadsheet;
 	private SpreadsheetCtrl _ctrl;

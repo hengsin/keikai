@@ -64,7 +64,8 @@ import org.zkoss.poi.ss.usermodel.*;
 import org.zkoss.poi.ss.util.CellRangeAddress;
 import org.zkoss.poi.xssf.usermodel.*;
 import org.zkoss.util.Locales;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Logger;
 
 /**
  * Contains common importing behavior for both XLSX and XLS. Spreadsheet
@@ -85,7 +86,7 @@ import org.zkoss.util.logging.Log;
 abstract public class AbstractExcelImporter extends AbstractImporter implements Serializable {
 	private static final long serialVersionUID = 6978036306999098019L;
 
-	private static final Log _logger = Log.lookup(AbstractExcelImporter.class);
+	private static final Logger _logger = Logger.getLogger(AbstractExcelImporter.class.getName());
 	
 	/**
 	 * <poi CellStyle index, {@link SCellStyle} object> Keep track of imported

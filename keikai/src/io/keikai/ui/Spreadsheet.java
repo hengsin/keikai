@@ -108,7 +108,6 @@ import org.zkoss.poi.ss.SpreadsheetVersion;
 import org.zkoss.poi.ss.formula.SheetNameFormatter;
 import org.zkoss.poi.ss.util.AreaReference;
 import org.zkoss.poi.ss.util.CellReference;
-import org.zkoss.util.logging.Log;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
 import org.zkoss.util.resource.ClassLocator;
@@ -185,6 +184,9 @@ import io.keikai.ui.sys.FreezeInfoLoader;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.impl.XulElement;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Spreadsheet is a rich ZK Component to handle EXCEL like behavior, it reads
  * the data from a data model({@link SBook}) and interact with this model by
@@ -219,7 +221,7 @@ import org.zkoss.zul.impl.XulElement;
  */
 
 public class Spreadsheet extends XulElement implements Serializable, AfterCompose {
-	private static final Log log = Log.lookup(Spreadsheet.class);
+	private static final Logger log = Logger.getLogger(Spreadsheet.class.getName());
 
 	private static final long serialVersionUID = 1L;
 	private static final String ROW_SIZE_HELPER_KEY = "_rowCellSize";
@@ -3917,8 +3919,8 @@ public class Spreadsheet extends XulElement implements Serializable, AfterCompos
 			right = right >= maxCols - 1 ? maxCols - 1 : right; //ZSS-1084
 			int top = rect.getRow();
 			int bottom = rect.getLastRow();
-			if(log.debugable()){
-				log.debug("update cells when insert column " + col + ",size:" + size + ":" + left + "," + top + "," + right + "," + bottom);
+			if(log.isLoggable(Level.INFO)){
+				log.info("update cells when insert column " + col + ",size:" + size + ":" + left + "," + top + "," + right + "," + bottom);
 			}
 			updateCell(sheet, left, top, right, bottom, CellAttribute.ALL); //ZSS-939
 			
@@ -3996,7 +3998,7 @@ public class Spreadsheet extends XulElement implements Serializable, AfterCompos
 			int left = rect.getColumn();
 			int right = rect.getLastColumn();
 			
-			log.debug("update cells when insert row " + row + ",size:" + size + ":" + left + "," + top + "," + right + "," + bottom);
+			log.info("update cells when insert row " + row + ",size:" + size + ":" + left + "," + top + "," + right + "," + bottom);
 			updateCell(sheet, left, top, right, bottom, CellAttribute.ALL);
 			
 			// ZSS-404: must update cell in freeze panels (previous range is only for data block)
@@ -4232,12 +4234,12 @@ public class Spreadsheet extends XulElement implements Serializable, AfterCompos
 			
 			for (Iterator iter = torem.iterator(); iter.hasNext();) {
 				MergedRect rect = (MergedRect) iter.next();
-				log.debug("(A)remove merge:" + rect);
+				log.info("(A)remove merge:" + rect);
 				updateMergeCell0(sheet, rect, "remove");
 			}
 			for (Iterator iter = toadd.iterator(); iter.hasNext();) {
 				MergedRect rect = (MergedRect) iter.next();
-				log.debug("add merge:" + rect);
+				log.info("add merge:" + rect);
 				updateMergeCell0(sheet, rect, "add");
 			}
 //			updateCell(sheet, left > 0 ? left - 1 : 0, top > 1 ? top - 1 : 0, right + 1, bottom + 1);

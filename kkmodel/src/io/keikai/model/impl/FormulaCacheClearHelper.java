@@ -17,7 +17,9 @@ import io.keikai.model.sys.dependency.ObjectRef;
 import io.keikai.model.sys.dependency.ObjectRef.ObjectType;
 import io.keikai.model.sys.dependency.Ref;
 import io.keikai.model.sys.dependency.Ref.RefType;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -29,7 +31,7 @@ import org.zkoss.util.logging.Log;
 
 	private final SBookSeries _bookSeries;
 	
-	private static final Log logger = Log.lookup(FormulaCacheClearHelper.class.getName());
+	private static final Logger logger = Logger.getLogger(FormulaCacheClearHelper.class.getName());
 	
 	public FormulaCacheClearHelper(SBookSeries bookSeries) {
 		this._bookSeries = bookSeries;
@@ -38,8 +40,8 @@ import org.zkoss.util.logging.Log;
 	public void clear(Set<Ref> refs) {
 		// clear formula cache
 		for (Ref ref : refs) {
-			if(logger.debugable()){
-				logger.debug("Clear Formula Cache: "+ref);
+			if(logger.isLoggable(Level.INFO)){
+				logger.info("Clear Formula Cache: "+ref);
 			}
 			//clear the dependent's formula cache since the precedent is changed.
 			if (ref.getType() == RefType.CELL || ref.getType() == RefType.AREA) {

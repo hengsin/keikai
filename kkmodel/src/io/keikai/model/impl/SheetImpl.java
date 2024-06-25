@@ -60,13 +60,16 @@ import org.zkoss.poi.ss.usermodel.DateUtil;
 import org.zkoss.poi.ss.util.CellReference;
 import org.zkoss.poi.ss.util.SheetUtil;
 import org.zkoss.poi.ss.util.WorkbookUtil;
-import org.zkoss.util.logging.Log;
 import io.keikai.model.sys.EngineFactory;
 import io.keikai.model.sys.dependency.DependencyTable;
 import io.keikai.model.sys.dependency.Ref;
 import io.keikai.model.sys.dependency.ObjectRef.ObjectType;
 import io.keikai.model.sys.formula.FormulaClearContext;
 import io.keikai.model.util.Validations;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 
  * @author dennis
@@ -74,7 +77,7 @@ import io.keikai.model.util.Validations;
  */
 public class SheetImpl extends AbstractSheetAdv {
 	private static final long serialVersionUID = 1L;
-	private static final Log _logger = Log.lookup(SheetImpl.class);
+	private static final Logger _logger = Logger.getLogger(SheetImpl.class.getName());
 			
 	private AbstractBookAdv _book;
 	private String _name;
@@ -245,9 +248,9 @@ public class SheetImpl extends AbstractSheetAdv {
 				prev = array;
 			}
 		}catch(RuntimeException x){
-			_logger.error(x.getMessage(),x);
+			_logger.log(Level.SEVERE, x.getMessage(),x);
 			for(AbstractColumnArrayAdv array:_columnArrays.values()){
-				_logger.info("ColumnArray "+array.getIndex()+":"+array.getLastIndex());
+				_logger.config("ColumnArray "+array.getIndex()+":"+array.getLastIndex());
 			}
 			throw x;
 		}

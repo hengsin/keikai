@@ -37,8 +37,10 @@ import org.zkoss.poi.ss.formula.ptg.NameXPtg;
 import org.zkoss.poi.ss.formula.ptg.Ptg;
 import org.zkoss.poi.ss.formula.ptg.TablePtg;
 import org.zkoss.poi.ss.formula.ptg.TablePtg.Item;
-import org.zkoss.util.logging.Log;
 import io.keikai.model.sys.formula.FormulaEngine;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A pseudo formula parsing workbook for parsing only.
@@ -48,7 +50,7 @@ import io.keikai.model.sys.formula.FormulaEngine;
 public class ParsingBook implements FormulaParsingWorkbook, FormulaRenderingWorkbook, Serializable {
 	private static final long serialVersionUID = 6254892443337634145L;
 
-	private static final Log logger = Log.lookup(ParsingBook.class.getName());
+	private static final Logger logger = Logger.getLogger(ParsingBook.class.getName());
 
 	private SBook book;
 	// ZSS-747
@@ -192,7 +194,7 @@ public class ParsingBook implements FormulaParsingWorkbook, FormulaRenderingWork
 		} catch(NumberFormatException e) {
 			// do nothing
 		} catch(IndexOutOfBoundsException e) {
-			logger.warning(e.getMessage(), e);
+			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 
 		// otherwise, it should be a book name already and just return itself.

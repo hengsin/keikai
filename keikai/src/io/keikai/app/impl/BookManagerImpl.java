@@ -5,14 +5,16 @@ import java.io.Serializable;
 
 import io.keikai.api.model.Book;
 import org.zkoss.lang.Library;
-import org.zkoss.util.logging.Log;
 import io.keikai.app.BookManager;
 import io.keikai.app.BookInfo;
 import io.keikai.app.BookRepository;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class BookManagerImpl implements BookManager, Serializable {
 	private static final long serialVersionUID = -2811375696946379394L;
-	private static final Log logger = Log.lookup(BookManagerImpl.class.getName());
+	private static final Logger logger = Logger.getLogger(BookManagerImpl.class.getName());
 	protected BookRepository repo;
 	
 	@Override
@@ -61,7 +63,7 @@ public class BookManagerImpl implements BookManager, Serializable {
 					bookManagerImpl = (BookManagerImpl) Class.forName(clz).getDeclaredConstructor(BookRepository.class).newInstance(repo);
 				} catch(Exception e) {
 					bookManagerImpl = new BookManagerImpl(repo);
-					logger.error(e.getMessage(), e);
+					logger.log(Level.SEVERE, e.getMessage(), e);
 				}			
 			} else
 				bookManagerImpl = new BookManagerImpl(repo);

@@ -7,7 +7,9 @@ import java.util.Set;
 import io.keikai.api.model.Book;
 import io.keikai.app.CollaborationInfo;
 import org.zkoss.lang.Library;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -18,7 +20,7 @@ import org.zkoss.util.logging.Log;
 public class CollaborationInfoImpl implements CollaborationInfo, Serializable {
 	private static final long serialVersionUID = 6857473475844968874L;
 	
-	private static final Log logger = Log.lookup(CollaborationInfoImpl.class.getName());
+	private static final Logger logger = Logger.getLogger(CollaborationInfoImpl.class.getName());
 	protected static CollaborationInfo collaborationInfo;
 	
 	class UserKey {
@@ -53,7 +55,7 @@ public class CollaborationInfoImpl implements CollaborationInfo, Serializable {
 					collaborationInfo = (CollaborationInfo) Class.forName(clz).newInstance();
 				} catch(Exception e) {
 					collaborationInfo =  new CollaborationInfoImpl();
-					logger.error(e.getMessage(), e);
+					logger.log(Level.SEVERE, e.getMessage(), e);
 				}			
 			} else
 				collaborationInfo =  new CollaborationInfoImpl();

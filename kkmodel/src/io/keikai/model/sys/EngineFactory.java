@@ -23,10 +23,13 @@ import io.keikai.model.impl.sys.InputEngineImpl;
 import io.keikai.model.impl.sys.formula.FormulaEngineImpl;
 import io.keikai.model.sys.dependency.DependencyTable;
 import org.zkoss.lang.Library;
-import org.zkoss.util.logging.Log;
 import io.keikai.model.sys.format.FormatEngine;
 import io.keikai.model.sys.formula.FormulaEngine;
 import io.keikai.model.sys.input.InputEngine;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 
  * @author dennis
@@ -34,7 +37,7 @@ import io.keikai.model.sys.input.InputEngine;
  */
 public class EngineFactory {
 
-	private static final Log _logger = Log.lookup(EngineFactory.class.getName());
+	private static final Logger _logger = Logger.getLogger(EngineFactory.class.getName());
 	
 	static private EngineFactory _instance;
 	
@@ -63,7 +66,7 @@ public class EngineFactory {
 			try {
 				inputEngineClazz = Class.forName(clz);
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 			}			
 		}
 		
@@ -75,7 +78,7 @@ public class EngineFactory {
 					return (_inputEngine = (InputEngine)inputEngineClazz.newInstance());
 				}
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 				inputEngineClazz = null;
 			}
 			_inputEngine = new InputEngineImpl();
@@ -90,7 +93,7 @@ public class EngineFactory {
 			try {
 				formulaEngineClazz = Class.forName(clz);
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 			}			
 		}
 		
@@ -102,7 +105,7 @@ public class EngineFactory {
 				return (FormulaEngine)formulaEngineClazz.newInstance();
 			}
 		} catch(Exception e) {
-			_logger.error(e.getMessage(), e);
+			_logger.log(Level.SEVERE, e.getMessage(), e);
 			formulaEngineClazz = null;
 		}
 		return new FormulaEngineImpl();
@@ -116,7 +119,7 @@ public class EngineFactory {
 			try {
 				dependencyTableClazz = Class.forName(clz);
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 			}			
 		}
 		
@@ -128,7 +131,7 @@ public class EngineFactory {
 				return (DependencyTable)dependencyTableClazz.newInstance();
 			}
 		} catch(Exception e) {
-			_logger.error(e.getMessage(), e);
+			_logger.log(Level.SEVERE, e.getMessage(), e);
 			dependencyTableClazz = null;
 		}
 		return new DependencyTableImpl();
@@ -142,7 +145,7 @@ public class EngineFactory {
 			try {
 				formatEngineClazz = Class.forName(clz);
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 			}			
 		}
 		
@@ -154,7 +157,7 @@ public class EngineFactory {
 					return (_formatEngine = (FormatEngine)formatEngineClazz.newInstance());
 				}
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 				formatEngineClazz = null;
 			}
 			_formatEngine = new FormatEngineImpl();

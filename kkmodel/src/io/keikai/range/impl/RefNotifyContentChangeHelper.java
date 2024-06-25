@@ -12,7 +12,9 @@ import io.keikai.model.SheetRegion;
 import io.keikai.model.impl.CellAttribute;
 import io.keikai.model.sys.dependency.ObjectRef;
 import io.keikai.model.sys.dependency.Ref;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -22,7 +24,7 @@ import org.zkoss.util.logging.Log;
 /*package*/ class RefNotifyContentChangeHelper extends RefHelperBase implements Serializable {
 	private static final long serialVersionUID = -816763214525819388L;
 
-	private static final Log _logger = Log.lookup(RefNotifyContentChangeHelper.class);
+	private static final Logger _logger = Logger.getLogger(RefNotifyContentChangeHelper.class.getName());
 			
 	private NotifyChangeHelper _notifyHelper = new NotifyChangeHelper();
 	public RefNotifyContentChangeHelper(SBookSeries bookSeries) {
@@ -61,8 +63,8 @@ import org.zkoss.util.logging.Log;
 		
 		// clear formula cache
 		for (Ref notify : notifySet) {
-			if(_logger.debugable()){
-				_logger.debug("Notify Dependent Change : "+notify+" with attibute "+ cellAttr);
+			if(_logger.isLoggable(Level.INFO)){
+				_logger.info("Notify Dependent Change : "+notify+" with attibute "+ cellAttr);
 			}
 			//clear the dependent's formula cache since the precedent is changed.
 			if (notify.getType() == Ref.RefType.CELL || notify.getType() == Ref.RefType.AREA) {

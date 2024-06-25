@@ -49,7 +49,9 @@ import io.keikai.model.impl.TableNameImpl;
 import io.keikai.model.util.Strings;
 import org.zkoss.poi.ss.usermodel.*;
 import org.zkoss.poi.ss.util.CellRangeAddress;
-import org.zkoss.util.logging.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Common exporting behavior for both XLSX and XLS.
@@ -82,7 +84,7 @@ abstract public class AbstractExcelExporter extends AbstractExporter {
 	//ZSS-1188
 	protected Map<STableStyle, TableStyle> tbStyleTable = new HashMap<STableStyle, TableStyle>();
 	
-	private static final Log _logger = Log.lookup(AbstractExcelExporter.class.getName());
+	private static final Logger _logger = Logger.getLogger(AbstractExcelExporter.class.getName());
 
 	abstract protected void exportColumnArray(SSheet sheet, Sheet poiSheet, SColumnArray columnArr);
 
@@ -202,7 +204,7 @@ abstract public class AbstractExcelExporter extends AbstractExporter {
 				}
 			}catch (Exception e) {
 				//ZSS-645 catch the exception happens when a book has a named range referring to an external book in XLS
-				_logger.warning("Cannot export a name range: "+name.getName(),e);
+				_logger.log(Level.WARNING, "Cannot export a name range: "+name.getName(),e);
 				if (poiName.getNameName()!=null){
 					workbook.removeName(poiName.getNameName());
 				}
@@ -490,7 +492,7 @@ abstract public class AbstractExcelExporter extends AbstractExporter {
 				poiCell.setHyperlink(poiHyperlink);
 			}catch (Exception e) {
 				//ZSS-644 catch the exception happens when a hyperlink has an invalid URI in XLSX
-				_logger.warning("Cannot export a hyperlink: "+hyperlink.getAddress(),e);
+				_logger.log(Level.WARNING, "Cannot export a hyperlink: "+hyperlink.getAddress(),e);
 			}
 			
 		}

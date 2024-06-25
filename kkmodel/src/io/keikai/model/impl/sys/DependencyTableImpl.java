@@ -12,9 +12,10 @@ import java.util.Set;
 
 import io.keikai.model.SBook;
 import io.keikai.model.SBookSeries;
-import org.zkoss.util.logging.Log;
 import io.keikai.model.sys.dependency.Ref;
 import io.keikai.model.sys.dependency.Ref.RefType;
+
+import java.util.logging.Logger;
 
 /* DependencyTableImpl.java
 
@@ -35,7 +36,7 @@ import io.keikai.model.sys.dependency.Ref.RefType;
  */
 public class DependencyTableImpl extends DependencyTableAdv {
 	private static final long serialVersionUID = 1L;
-	private static final Log _logger = Log.lookup(DependencyTableImpl.class.getName());
+	private static final Logger _logger = Logger.getLogger(DependencyTableImpl.class.getName());
 	protected static final EnumSet<RefType> _regionTypes = EnumSet.of(RefType.BOOK, RefType.SHEET, RefType.AREA,
 			RefType.CELL, RefType.TABLE);
 
@@ -289,7 +290,7 @@ public class DependencyTableImpl extends DependencyTableAdv {
 	public void merge(DependencyTableAdv dependencyTable) {
 		if(!(dependencyTable instanceof DependencyTableImpl)) {
 			// just in case
-			_logger.error("can't merge different type of dependency table: " + dependencyTable.getClass().getName());
+			_logger.severe("can't merge different type of dependency table: " + dependencyTable.getClass().getName());
 			return;
 		}
 

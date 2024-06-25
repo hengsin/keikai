@@ -54,7 +54,6 @@ import io.keikai.model.STableStyleElem;
 import io.keikai.model.SheetRegion;
 import org.zkoss.lang.Objects;
 import org.zkoss.poi.ss.SpreadsheetVersion;
-import org.zkoss.util.logging.Log;
 import org.zkoss.zk.ui.Executions;
 import io.keikai.model.impl.sys.DependencyTableAdv;
 import io.keikai.model.impl.sys.formula.ParsingBook;
@@ -71,6 +70,9 @@ import io.keikai.model.util.Validations;
 import io.keikai.range.impl.NotifyChangeHelper;
 import io.keikai.range.impl.StyleUtil;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author dennis
  * @since 3.5.0
@@ -78,7 +80,7 @@ import io.keikai.range.impl.StyleUtil;
 public class BookImpl extends AbstractBookAdv{
 	private static final long serialVersionUID = 1L;
 	
-	private static final Log _logger = Log.lookup(BookImpl.class);
+	private static final Logger _logger = Logger.getLogger(BookImpl.class.getName());
 
 	private static final String SYNC_MERGE_FIRED = "_ZSS_MER";
 	

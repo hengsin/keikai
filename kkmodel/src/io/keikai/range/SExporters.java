@@ -20,9 +20,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.zkoss.lang.Library;
-import org.zkoss.util.logging.Log;
 import io.keikai.range.impl.imexp.ExcelExportFactory;
 import io.keikai.range.impl.imexp.ExcelExportFactory.Type;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class that you can get an exporter by registered name and register an exporter.
@@ -31,7 +33,7 @@ import io.keikai.range.impl.imexp.ExcelExportFactory.Type;
  */
 public class SExporters {
 	
-	private static final Log _logger = Log.lookup(SExporters.class.getName());
+	private static final Logger _logger = Logger.getLogger(SExporters.class.getName());
 	static private HashMap<String,SExporterFactory> _factories = new LinkedHashMap<String, SExporterFactory>();
 	
 	static{
@@ -54,7 +56,7 @@ public class SExporters {
 					}
 				}
 			} catch(Exception e) {
-				_logger.error(e.getMessage(), e);
+				_logger.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 	}

@@ -31,9 +31,11 @@ import io.keikai.model.STable;
 import io.keikai.model.SheetRegion;
 import io.keikai.model.impl.AbstractBookAdv;
 import io.keikai.model.impl.CellAttribute;
-import org.zkoss.util.logging.Log;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A helper class that encapsulate details of sending model events.
@@ -42,7 +44,7 @@ import org.zkoss.zk.ui.Executions;
  */
 public class NotifyChangeHelper{
 
-	private static final Log _logger = Log.lookup(NotifyChangeHelper.class.getName());
+	private static final Logger _logger = Logger.getLogger(NotifyChangeHelper.class.getName());
 	
 	public void notifyRowColumnSizeChange(Set<SheetRegion> notifySet) {
 		for (SheetRegion notify : notifySet) {
@@ -124,8 +126,8 @@ public class NotifyChangeHelper{
 	}
 	public void notifyMergeRemove(SheetRegion notify) {
 		SBook book = notify.getSheet().getBook();
-		if(_logger.debugable()){
-			_logger.debug("Notify remove merge "+notify.getReferenceString());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify remove merge "+notify.getReferenceString());
 		}
 		((AbstractBookAdv) book).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_MERGE_DELETE,notify.getSheet(),
 				notify.getRegion()));
@@ -133,8 +135,8 @@ public class NotifyChangeHelper{
 	//ZSS-1168
 	public void notifyMergeSync(SheetRegion notify) {
 		SBook book = notify.getSheet().getBook();
-		if(_logger.debugable()){
-			_logger.debug("Notify clear merge cache "+notify.getReferenceString());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify clear merge cache "+notify.getReferenceString());
 		}
 		((AbstractBookAdv) book).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_MERGE_SYNC,notify.getSheet(),
 				notify.getRegion()));
@@ -147,8 +149,8 @@ public class NotifyChangeHelper{
 	}
 	public void notifyMergeAdd(SheetRegion notify) {
 		SBook book = notify.getSheet().getBook();
-		if(_logger.debugable()){
-			_logger.debug("Notify add merge "+notify.getReferenceString());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify add merge "+notify.getReferenceString());
 		}
 		((AbstractBookAdv) book).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_MERGE_ADD,notify.getSheet(),
 				notify.getRegion()));
@@ -174,8 +176,8 @@ public class NotifyChangeHelper{
 	//@since 3.8.0
 	public void notifyCellChange(SheetRegion notify, CellAttribute cellAttr) {
 		SBook book = notify.getSheet().getBook();
-		if(_logger.debugable()){
-			_logger.debug("Notify cell change "+notify.getReferenceString()+" of attribute "+cellAttr);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify cell change "+notify.getReferenceString()+" of attribute "+cellAttr);
 		}
 		final Map<String, Integer> attrMap = new HashMap<String, Integer>(2);
 		attrMap.put("cellAttr", cellAttr.value);
@@ -184,54 +186,54 @@ public class NotifyChangeHelper{
 	}
 	
 	public void notifySheetDelete(SBook book,SSheet deletedSheet,int deletedIndex){
-		if(_logger.debugable()){
-			_logger.debug("Notify sheet delete "+deletedSheet.getSheetName()+":"+deletedIndex);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify sheet delete "+deletedSheet.getSheetName()+":"+deletedIndex);
 		}
 		((AbstractBookAdv) book).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_SHEET_DELETE,book,
 				ModelEvents.createDataMap(ModelEvents.PARAM_SHEET,deletedSheet,ModelEvents.PARAM_INDEX,deletedIndex)));
 	}
 	
 	public void notifySheetCreate(SSheet sheet){
-		if(_logger.debugable()){
-			_logger.debug("Notify sheet create "+sheet.getSheetName());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify sheet create "+sheet.getSheetName());
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_SHEET_CREATE,sheet));
 	}
 	
 	public void notifySheetNameChange(SSheet sheet,String oldName){
-		if(_logger.debugable()){
-			_logger.debug("Notify sheet name change "+oldName+" to "+sheet.getSheetName());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify sheet name change "+oldName+" to "+sheet.getSheetName());
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_SHEET_NAME_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_OLD_NAME,oldName)));
 	}
 	
 	public void notifySheetReorder(SSheet sheet,int oldIdx){
-		if(_logger.debugable()){
-			_logger.debug("Notify sheet reorder "+oldIdx+" to "+sheet.getBook().getSheetIndex(sheet));
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify sheet reorder "+oldIdx+" to "+sheet.getBook().getSheetIndex(sheet));
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_SHEET_ORDER_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_OLD_INDEX,oldIdx)));
 	}
 	//ZSS-823
 	public void notifySheetVisibleChange(SSheet sheet) {
-		if(_logger.debugable()){
-			_logger.debug("Notify sheet visibile change: " + sheet.getSheetName() +" to " + sheet.getSheetVisible());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify sheet visibile change: " + sheet.getSheetName() +" to " + sheet.getSheetVisible());
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_SHEET_VISIBLE_CHANGE,sheet));
 	}
 
 	public void notifyDataValidationChange(SSheet sheet, String validationId) {
-		if(_logger.debugable()){
-			_logger.debug("Notify data validation change"+validationId);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify data validation change"+validationId);
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_DATA_VALIDATION_CONTENT_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_OBJECT_ID,validationId)));
 	}
 
 	public void notifyChartChange(SSheet sheet, String chartId) {
-		if(_logger.debugable()){
-			_logger.debug("Notify chart change "+chartId);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify chart change "+chartId);
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_CHART_CONTENT_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_OBJECT_ID,chartId)));
@@ -239,24 +241,24 @@ public class NotifyChangeHelper{
 
 	public void notifyCustomEvent(String customEventName, SSheet sheet,
 			Object data) {
-		if(_logger.debugable()){
-			_logger.debug("Notify custom event "+customEventName+":"+data);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify custom event "+customEventName+":"+data);
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(customEventName,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_CUSTOM_DATA,data)));
 	}
 
 	public void notifyDisplayGridlines(SSheet sheet, boolean show) {
-		if(_logger.debugable()){
-			_logger.debug("Notify display gridlines "+show);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify display gridlines "+show);
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_DISPLAY_GRIDLINES_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_ENABLED,show)));
 	}
 	
 	public void notifyProtectSheet(SSheet sheet, boolean protect) {
-		if(_logger.debugable()){
-			_logger.debug("Notify protect sheet "+sheet.getSheetName()+":"+protect);
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify protect sheet "+sheet.getSheetName()+":"+protect);
 		}
 		((AbstractBookAdv) sheet.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_PROTECT_SHEET_CHANGE,sheet,
 				ModelEvents.createDataMap(ModelEvents.PARAM_ENABLED,protect)));
@@ -278,8 +280,8 @@ public class NotifyChangeHelper{
 			eventName = update.isInserted() ? ModelEvents.ON_COLUMN_INSERT : ModelEvents.ON_COLUMN_DELETE;
 			region = new CellRegion(0, update.getIndex(), 0, update.getLastIndex());
 		}
-		if(_logger.debugable()){
-			_logger.debug("Notify InsertDelete "+eventName+":"+region.getReferenceString());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify InsertDelete "+eventName+":"+region.getReferenceString());
 		}
 		SSheet sheet = update.getSheet();
 		ModelEvent event = ModelEvents.createModelEvent(eventName, sheet, region);
@@ -288,8 +290,8 @@ public class NotifyChangeHelper{
 	
 	//ZSS-966: This might be useful when we do Name Manager
 	public void notifyNameNameChange(SSheet sheet, SName name, String oldName){
-		if(_logger.debugable()){
-			_logger.debug("Notify Name's name change "+oldName+" to "+name.getName());
+		if(_logger.isLoggable(Level.INFO)){
+			_logger.info("Notify Name's name change "+oldName+" to "+name.getName());
 		}
 		((AbstractBookAdv) name.getBook()).sendModelEvent(ModelEvents.createModelEvent(ModelEvents.ON_NAME_NAME_CHANGE, name.getBook(), sheet, 
 				ModelEvents.createDataMap(ModelEvents.PARAM_OLD_NAME,oldName, ModelEvents.PARAM_NAME, name)));
